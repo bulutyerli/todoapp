@@ -21,13 +21,14 @@ taskList.addEventListener("click", (e) => {
   if (e.target.closest(".delete-task")) {
     const taskItem = e.target.closest(".task-item");
     const taskId = taskItem.dataset.id;
-    console.log(taskId);
-    const tasks = model.getTasks(); // Retrieve the updated tasks from the model
 
-    model.deleteTask(taskId);
+    model.deleteTask(+taskId);
+    console.log(typeof +taskId);
+    const tasks = model.getTasks(); // Retrieve the updated tasks from the model
     view.renderTasks(tasks);
   }
 });
 
 view.btnHandler(addBtn);
 view.formCloseBtnHandler();
+view.checkBoxHandler(model.getTasks());

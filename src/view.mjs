@@ -24,7 +24,10 @@ export default class View {
     this.taskList.innerHTML = ""; // Clear the task list before rendering
 
     tasks.forEach((task) => {
-      const html = `<div class="task-item" data-id="${tasks.length}">
+      const html = `<div class="task-item ${
+        task.priority === "important" ? "important" : ""
+      } " data-id="${task.id}">
+      <input type="checkbox" class="task-checkbox" />
         ${task.title}
         <div class="options">
           <div class="date">${task.dueDate}</div>
@@ -39,8 +42,10 @@ export default class View {
 
       this.taskList.insertAdjacentHTML("beforeend", html);
     });
+    this.checkBoxHandler(tasks);
   }
 
+  // Button handlers for add new task buttons
   btnHandler(buttons) {
     buttons.forEach((button) => {
       button.addEventListener("click", (e) => {
@@ -50,6 +55,27 @@ export default class View {
     });
   }
 
+  // checkbox of tasks handler.
+
+  checkBoxHandler(tasks) {
+    const checkboxes = document.querySelectorAll(".task-checkbox");
+    checkboxes.forEach((checkbox) => {
+      checkbox.addEventListener("change", (event) => {
+        const taskId = event.target.closest(".task-item").dataset.id;
+        const taskItem = document.querySelector(`[data-id="${taskId}"]`);
+
+        if (event.target.checked) {
+          taskItem.classList.add("completed");
+          tasks.find((task) => task.id === parseInt(taskId)).completed = "yes";
+        } else {
+          taskItem.classList.remove("completed");
+          tasks.find((task) => task.id === parseInt(taskId)).completed = "no";
+        }
+      });
+    });
+  }
+
+  //form close button handler
   formCloseBtnHandler() {
     const closeBtn = document.querySelector(".form-close");
     closeBtn.addEventListener("click", (e) => {
@@ -58,6 +84,7 @@ export default class View {
     });
   }
 
+  //toggle add task form display
   showForm() {
     if (this.modal.style.display === "none") {
       this.modal.style.display = "flex";
