@@ -38,24 +38,23 @@
               />Everything
             </div>
             <div class="item today">
-              <img src="/assets/images/today.svg" alt="today icon" />This is the
-              Day
+              <img src="/assets/images/today.svg" alt="today icon" />Today
             </div>
             <div class="item week">
-              <img src="/assets/images/week.svg" alt="calendar week icon" />in a
+              <img src="/assets/images/week.svg" alt="calendar week icon" />This
               Week
             </div>
             <div class="item important">
               <img
                 src="/assets/images/important.svg"
                 alt="important icon"
-              />Have to do
+              />Important
             </div>
             <div class="item completed-bar">
               <img
                 src="/assets/images/completed.svg"
                 alt="check icon"
-              />Victory!
+              />Completed!
             </div>
           </div>
           <div class="projects">
@@ -69,7 +68,7 @@
         </section>
         <section class="main-screen">
           <div class="task-list">
-            <div class="task-item completed important" data-id="0">
+            <!-- <div class="task-item completed important" data-id="0">
               <input
                 type="checkbox"
                 name="task-checkbox"
@@ -78,20 +77,22 @@
               Task 1
               <div class="options">
                 <div class="date">Date</div>
-                <div class="task-item-btn">
+                <div class="details-btn task-item-btn">
                   <img src="/assets/images/details.svg" alt="" />
                 </div>
                 <div class="delete-task task-item-btn">
                   <img src="/assets/images/trash.svg" alt="" />
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="modal">
-            <form class="form-modal" action="" method="post">
-              <button class="form-close">X</button>
+            <form class="form-modal modal-window" action="" method="post">
+              <button type="button" class="form-close modal-close-btn">
+                X
+              </button>
               <label for="title">Title:</label>
-              <input type="text" id="title" name="title" required />
+              <input type="text" id="title" name="title" />
               <label for="description">Description:</label>
               <textarea
                 name="description"
@@ -100,7 +101,7 @@
                 rows="5"
               ></textarea>
               <label for="due-date">Due Date:</label>
-              <input type="date" id="due-date" name="due-date" required />
+              <input type="date" id="due-date" name="due-date" />
               <label for="priority">Priority:</label>
               <select name="priority" id="priority">
                 <option value="normal">Normal</option>
@@ -109,10 +110,20 @@
               <button class="task-btn">Add Task</button>
             </form>
           </div>
+          <div class="desc-modal modal-window">
+            <!-- <button class="desc-close-btn modal-close-btn">X</button>
+            <div><div class="details-title">Task Title:</div></div>
+            <div>
+              <div class="details-title">Description:</div>
+              test
+            </div>
+            <div><div class="details-title">Due Date:</div></div>
+            <div><div class="details-title">Status:</div></div> -->
+          </div>
         </section>
         <div class="overlay"></div>
       </div>
+      <footer>&copy Copyright 2023 Bulut Yerli</footer>
     </div>
-    <footer>&copy Copyright 2023 Bulut Yerli</footer>
   </body>
 </html>

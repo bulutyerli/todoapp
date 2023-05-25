@@ -30,5 +30,5 @@ taskList.addEventListener("click", (e) => {
 });
 
 view.btnHandler(addBtn);
-view.formCloseBtnHandler();
+view.modalCloseBtnHandler();
 view.checkBoxHandler(model.getTasks());

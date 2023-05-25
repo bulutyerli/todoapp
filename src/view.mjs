@@ -2,6 +2,7 @@ export default class View {
   constructor() {
     this.modal = document.querySelector(".form-modal");
     this.taskList = document.querySelector(".task-list");
+    this.descModal = document.querySelector(".desc-modal");
   }
 
   getFormValues() {
@@ -31,7 +32,7 @@ export default class View {
         ${task.title}
         <div class="options">
           <div class="date">${task.dueDate}</div>
-          <div class="task-item-btn">
+          <div class="details-btn task-item-btn">
             <img src="/assets/images/details.svg" alt="" />
           </div>
           <div class="delete-task task-item-btn">
@@ -43,6 +44,39 @@ export default class View {
       this.taskList.insertAdjacentHTML("beforeend", html);
     });
     this.checkBoxHandler(tasks);
+    this.detailsBtnHandler(tasks);
+  }
+
+  //details modal button handler
+  detailsBtnHandler(tasks) {
+    let modalStatus = false;
+
+    const detailBtn = document.querySelectorAll(".details-btn");
+    detailBtn.forEach((detail) => {
+      detail.addEventListener("click", (event) => {
+        const taskId = event.target.closest(".task-item").dataset.id;
+        const descModal = document.querySelector(".desc-modal");
+        const dscCloseBtn = document.querySelector(".desc-close-btn");
+        const html = `
+        <button class="desc-close-btn modal-close-btn">X</button>
+        <div><div class="details-title">Task Title:</div>${tasks[taskId].title}</div>
+        <div>
+          <div class="details-title">Description:</div>${tasks[taskId].description}
+        </div>
+        <div><div class="details-title">Due Date:</div>${tasks[taskId].dueDate}</div>
+        <div><div class="details-title">Status:</div>${tasks[taskId].completed}</div>
+      `;
+        if (modalStatus === false) {
+          descModal.insertAdjacentHTML("beforeend", html);
+
+          this.descModal.style.display = "flex";
+        }
+        modalStatus = true;
+        dscCloseBtn.addEventListener("click", () => {
+          this.descModal.style.display = "none";
+        });
+      });
+    });
   }
 
   // Button handlers for add new task buttons
@@ -76,11 +110,18 @@ export default class View {
   }
 
   //form close button handler
-  formCloseBtnHandler() {
-    const closeBtn = document.querySelector(".form-close");
-    closeBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      this.modal.style.display = "none";
+
+  modalCloseBtnHandler() {
+    const closeBtn = document.querySelectorAll(".modal-close-btn");
+    closeBtn.forEach((buttons) => {
+      buttons.addEventListener("click", (e) => {
+        if (e.target.classList.contains("desc-close-btn")) {
+          this.descModal.style.display = "none";
+        }
+        if (e.target.classList.contains("form-close")) {
+          this.modal.style.display = "none";
+        }
+      });
     });
   }
 
