@@ -49,14 +49,10 @@ export default class View {
 
   //details modal button handler
   detailsBtnHandler(tasks) {
-    let modalStatus = false;
-
     const detailBtn = document.querySelectorAll(".details-btn");
     detailBtn.forEach((detail) => {
       detail.addEventListener("click", (event) => {
         const taskId = event.target.closest(".task-item").dataset.id;
-        const descModal = document.querySelector(".desc-modal");
-        const dscCloseBtn = document.querySelector(".desc-close-btn");
         const html = `
         <button class="desc-close-btn modal-close-btn">X</button>
         <div><div class="details-title">Task Title:</div>${tasks[taskId].title}</div>
@@ -66,15 +62,14 @@ export default class View {
         <div><div class="details-title">Due Date:</div>${tasks[taskId].dueDate}</div>
         <div><div class="details-title">Status:</div>${tasks[taskId].completed}</div>
       `;
-        if (modalStatus === false) {
-          descModal.insertAdjacentHTML("beforeend", html);
-
+        if (this.descModal.style.display === "none") {
+          this.descModal.insertAdjacentHTML("beforeend", html);
           this.descModal.style.display = "flex";
-        }
-        modalStatus = true;
-        dscCloseBtn.addEventListener("click", () => {
+          this.modalCloseBtnHandler();
+        } else {
           this.descModal.style.display = "none";
-        });
+          this.descModal.innerHTML = "";
+        }
       });
     });
   }
@@ -117,6 +112,7 @@ export default class View {
       buttons.addEventListener("click", (e) => {
         if (e.target.classList.contains("desc-close-btn")) {
           this.descModal.style.display = "none";
+          this.descModal.innerHTML = "";
         }
         if (e.target.classList.contains("form-close")) {
           this.modal.style.display = "none";
