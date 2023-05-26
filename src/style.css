@@ -44,8 +44,13 @@ body {
   font-family: "MyFont", sans-serif;
 }
 
-h3 {
+.add-task-text {
   color: var(--primary-color);
+}
+
+.add-task-text:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 header {
@@ -69,11 +74,14 @@ header {
 .add-new img {
   margin-right: 10px;
   cursor: pointer;
-  transition: transform 0.3s;
 }
 
-.add-new img:hover {
+.add-new img:hover,
+.details-btn img:hover,
+.delete-task img:hover,
+.edit-task img:hover {
   transform: scale(1.2);
+  transition: transform 0.4s;
 }
 
 .container {
@@ -126,6 +134,7 @@ footer {
   gap: 10px;
   align-items: center;
   padding-left: 20px;
+  border-left: 10px solid var(--accent-color);
 }
 
 .item:hover {
@@ -133,6 +142,7 @@ footer {
   color: var(--accent-color);
   cursor: pointer;
   border: solid 1px var(--white-color);
+  border-left: 10px solid var(--primary-color);
 }
 
 .projects {
@@ -157,6 +167,12 @@ footer {
   align-items: center;
   border-radius: 10px;
   justify-content: space-between;
+  border-left: 10px solid var(--accent-color);
+}
+
+.task-title {
+  position: absolute;
+  left: 35%;
 }
 
 .task-checkbox {
@@ -171,6 +187,9 @@ footer {
   outline: none;
   cursor: pointer;
 }
+.important {
+  border-left: 10px solid var(--important-color);
+}
 
 .task-checkbox:checked {
   background-color: var(--completed-color);
@@ -184,12 +203,6 @@ footer {
 
 .completed-bar {
   border-left: 10px solid var(--completed-color);
-  padding-left: 10px;
-}
-
-.important {
-  padding-left: 10px;
-  border-left: 10px solid var(--important-color);
 }
 
 .task-item-btn {
@@ -200,6 +213,7 @@ footer {
   display: flex;
   gap: 3vh;
   align-items: center;
+  margin-left: 100px;
 }
 
 .detail-btn {
@@ -239,7 +253,8 @@ select {
   height: 30px;
 }
 
-.task-btn {
+.task-btn,
+.edit-task-btn {
   width: 50%;
   height: 30px;
   border-radius: 7px;
@@ -248,7 +263,8 @@ select {
   margin-top: 20px;
 }
 
-.task-btn:hover {
+.task-btn:hover,
+.edit-task-btn:hover {
   background-color: var(--primary-color);
   color: var(--white-color);
   border: 2px solid var(--white-color);
@@ -256,7 +272,15 @@ select {
 }
 
 .form-modal {
+  display: none;
+}
+
+.form-modal--active {
   display: flex;
+}
+
+.edit-form-modal {
+  display: none;
 }
 
 .modal-window {
@@ -278,6 +302,10 @@ select {
 
 .desc-modal {
   display: none;
+}
+
+.desc-modal--active {
+  display: flex;
   width: 500px;
   word-wrap: break-word;
   gap: 1rem;

@@ -1,7 +1,7 @@
 export default class Model {
   constructor() {
     this.tasks = [];
-    this.counter = 0;
+    this.id = "id" + Math.random().toString(16).slice(2);
   }
 
   addTask(taskData) {
@@ -12,21 +12,24 @@ export default class Model {
       dueDate,
       priority,
       completed,
-      this.counter
+      this.id
     );
     this.tasks.push(task);
-    this.counter++;
+    this.id = "id" + Math.random().toString(16).slice(2);
   }
 
   getTasks() {
     return this.tasks;
   }
 
+  setTasks(tasks) {
+    this.tasks = tasks;
+  }
+
   deleteTask(id) {
     const taskIndex = this.tasks.findIndex((task) => task.id === id);
     if (taskIndex !== -1) {
       this.tasks.splice(taskIndex, 1);
-      console.log(this.tasks);
     }
   }
 }

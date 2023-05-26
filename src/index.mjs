@@ -4,6 +4,17 @@ import View from "./view.mjs";
 const view = new View();
 const model = new Model();
 
+const storedTasks = JSON.parse(localStorage.getItem("tasks"));
+
+if (storedTasks) {
+  model.setTasks(storedTasks);
+  view.checkBoxHandler(model.getTasks());
+  view.renderTasks(model.getTasks());
+  view.taskFilterHandler(model.getTasks());
+} else {
+  view.renderTasks([]);
+}
+
 const addBtn = document.querySelectorAll(".add-new");
 const form = document.querySelector(".form-modal");
 
@@ -11,6 +22,8 @@ form.addEventListener("submit", function (e) {
   e.preventDefault();
   model.addTask(view.getFormValues());
   const tasks = model.getTasks(); // Retrieve the updated tasks from the model
+
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 
   view.renderTasks(tasks); // Render the tasks on the website
   view.clearForm();
@@ -22,13 +35,13 @@ taskList.addEventListener("click", (e) => {
     const taskItem = e.target.closest(".task-item");
     const taskId = taskItem.dataset.id;
 
-    model.deleteTask(+taskId);
-    console.log(typeof +taskId);
+    model.deleteTask(taskId);
     const tasks = model.getTasks(); // Retrieve the updated tasks from the model
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+
     view.renderTasks(tasks);
   }
 });
 
 view.btnHandler(addBtn);
 view.modalCloseBtnHandler();
-view.checkBoxHandler(model.getTasks());
