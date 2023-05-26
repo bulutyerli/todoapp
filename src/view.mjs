@@ -3,13 +3,14 @@ export default class View {
     this.modal = document.querySelector(".form-modal");
     this.taskList = document.querySelector(".task-list");
     this.descModal = document.querySelector(".desc-modal");
-    this.editModal = document.querySelector(".edit-form-modal");
+    this.editModal = document.querySelector(".edit-task-modal");
   }
 
   getFormValues() {
     const title = document.getElementById("title").value;
     const description = document.getElementById("description").value;
     const dueDate = document.getElementById("due-date").value;
+    const dueDateCopy = dueDate;
     const priority = document.getElementById("priority").value;
     const date = new Date(dueDate);
     const options = { day: "numeric", month: "long", year: "numeric" };
@@ -20,6 +21,7 @@ export default class View {
       description,
       dueDate: this.checkDateStatus(formattedDate),
       priority,
+      dueDateCopy,
     };
   }
 
@@ -66,47 +68,87 @@ export default class View {
     this.checkBoxHandler(tasks);
   }
 
-  //edit tasks button handler
+  // edit tasks button handler
 
-  // editBtnHandler(tasks) {
-  //   const editBtn = document.querySelectorAll(".edit-task-btn");
-  //   editBtn.forEach((edit) => {
-  //     edit.addEventListener("click", (event) => {
-  //       console.log("hi");
+  editBtnHandler(tasks) {
+    const editBtn = document.querySelectorAll(".edit-task");
+    editBtn.forEach((edit) => {
+      edit.addEventListener("click", (event) => {
+        const taskId = event.target.closest(".task-item").dataset.id;
+        const task = tasks.find((item) => item.id === taskId);
+        const { title, description, dueDateCopy, priority, id } = task;
+        console.log("hi");
 
-  //       event.preventDefault();
-  //       const html = `<button type="button" class="form-close modal-close-btn">
-  //       X
-  //     </button>
-  //     <label for="edit-title">Title:</label>
-  //     <input
-  //       type="text"
-  //       id="edit-title"
-  //       name="edit-title"
-  //       maxlength="25"
-  //       minlength="3"
-  //       placeholder="min: 3, max: 25 characters"
-  //     />
-  //     <label for="edit-description">Description:</label>
-  //     <textarea
-  //       name="edit-description"
-  //       id="edit-description"
-  //       cols="30"
-  //       rows="5"
-  //     ></textarea>
-  //     <label for="edit-due-date">Due Date:</label>
-  //     <input type="date" id="edit-due-date" name="edit-due-date" />
-  //     <label for="edit-priority">Priority:</label>
-  //     <select name="edit-priority" id="edit-priority">
-  //       <option value="normal">Normal</option>
-  //       <option value="important">Important</option>
-  //     </select>
-  //     <button class="edit-task-btn">Save</button>`;
-  //       this.editModal.style.display = "flex";
-  //       this.editModal.insertAdjacentHTML("beforeend", html);
-  //     });
-  //   });
-  // }
+        event.preventDefault();
+        const html = `<button type="button" class="edit-close-btn modal-close-btn">
+        X
+      </button>
+      <label for="edit-title">Title:</label>
+      <input
+        type="text"
+        id="edit-title"
+        name="edit-title"
+        maxlength="25"
+        minlength="3"
+        value="${title}"
+      />
+      <label for="edit-description">Description:</label>
+      <textarea
+        name="edit-description"
+        id="edit-description"
+        cols="30"
+        rows="5"
+      >${description}</textarea>
+      <label for="edit-due-date">Due Date:</label>
+      <input type="date" id="edit-due-date" name="edit-due-date"value="${dueDateCopy}"  />
+      <label for="edit-priority">Priority:</label>
+      <select name="edit-priority" id="edit-priority">
+        <option value="normal">${priority}</option>
+      </select>
+      <button class="edit-task-btn">Save</button>`;
+        if (!this.editModal.classList.contains("edit-task-modal--active")) {
+          this.editModal.insertAdjacentHTML("beforeend", html);
+          this.editModal.classList.add("edit-task-modal--active");
+          this.modalCloseBtnHandler();
+
+          const editTaskForm = document.querySelector(".edit-task-modal");
+          editTaskForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const updatedTitle = document.getElementById("edit-title").value;
+            const updatedDesc =
+              document.getElementById("edit-description").value;
+            const updatedDueDate =
+              document.getElementById("edit-due-date").value;
+            const updatedPriority =
+              document.getElementById("edit-priority").value;
+            const date = new Date(updatedDueDate);
+            const options = { day: "numeric", month: "long", year: "numeric" };
+            const formattedDate = date.toLocaleDateString("en-US", options);
+            const updatedTask = {
+              ...task,
+              id: id,
+              title: updatedTitle,
+              description: updatedDesc,
+              dueDate: this.checkDateStatus(formattedDate),
+              priority: updatedPriority,
+            };
+            const updatedTasks = tasks.map((t) =>
+              t.id === task.id ? updatedTask : t
+            );
+            this.updateTasks(updatedTasks);
+          });
+        } else {
+          this.editModal.classList.remove("edit-task-modal--active");
+          this.editModal.textContent = "";
+        }
+      });
+    });
+  }
+
+  updateTasks(updatedTasks) {
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    this.renderTasks(updatedTasks);
+  }
 
   //details modal button handler
   detailsBtnHandler(tasks) {
@@ -185,6 +227,10 @@ export default class View {
         if (e.target.classList.contains("form-close")) {
           this.modal.classList.remove("form-modal--active");
         }
+        if (e.target.classList.contains("edit-close-btn")) {
+          this.editModal.classList.remove("edit-task-modal--active");
+          this.editModal.textContent = "";
+        }
       });
     });
   }
@@ -210,7 +256,10 @@ export default class View {
           filteredTasks = tasks;
 
           filteredTasks = tasks.filter(
-            (task) => task.dueDate.includes("in") && task.completed === "no"
+            (task) =>
+              task.dueDate.includes("in") ||
+              task.dueDate.includes("today") ||
+              (task.dueDate.includes("tomorrow") && task.completed === "no")
           );
         } else if (filterType.contains("important")) {
           filteredTasks = tasks;
@@ -263,8 +312,10 @@ export default class View {
     // Calculate the number of days remaining
     const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
 
-    if (daysRemaining > 0 && daysRemaining <= 7) {
-      return `in ${daysRemaining} day${daysRemaining > 1 ? "s" : ""}`;
+    if (daysRemaining > 1 && daysRemaining <= 7) {
+      return `in ${daysRemaining} days`;
+    } else if (daysRemaining === 1) {
+      return "tomorrow";
     } else {
       return dateString;
     }

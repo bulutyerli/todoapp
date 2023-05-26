@@ -163,16 +163,13 @@ footer {
   width: 100vh;
   height: 5vh;
   padding: 3vh 4vh;
-  display: flex;
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 1fr;
+  align-content: center;
   align-items: center;
   border-radius: 10px;
   justify-content: space-between;
   border-left: 10px solid var(--accent-color);
-}
-
-.task-title {
-  position: absolute;
-  left: 35%;
 }
 
 .task-checkbox {
@@ -210,29 +207,19 @@ footer {
 }
 
 .options {
-  display: flex;
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 1fr;
   gap: 3vh;
   align-items: center;
-  margin-left: 100px;
+}
+
+.date {
+  text-align: center;
 }
 
 .detail-btn {
   background-color: var(--primary-color);
   width: 8vh;
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--shadow-color);
-  display: none;
-}
-
-.overlay.active {
-  display: block;
 }
 
 label {
@@ -279,8 +266,12 @@ select {
   display: flex;
 }
 
-.edit-form-modal {
+.edit-task-modal {
   display: none;
+}
+
+.edit-task-modal--active {
+  display: flex;
 }
 
 .modal-window {
@@ -326,6 +317,19 @@ select {
   font-weight: 900;
   cursor: pointer;
   border-radius: 5px;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--shadow-color);
+  display: none;
+}
+
+.overlay.active {
+  display: block;
 }
 
 footer {

@@ -5,15 +5,18 @@ export default class Model {
   }
 
   addTask(taskData) {
-    const { title, description, dueDate, priority, completed } = taskData;
+    const { title, description, dueDate, dueDateCopy, priority, completed } =
+      taskData;
     const task = new Task(
       title,
       description,
       dueDate,
+      dueDateCopy,
       priority,
       completed,
       this.id
     );
+    this.dueDateCopy = this.dueDate;
     this.tasks.push(task);
     this.id = "id" + Math.random().toString(16).slice(2);
   }
@@ -35,10 +38,19 @@ export default class Model {
 }
 
 class Task {
-  constructor(title, description, dueDate, priority, completed = "no", id) {
+  constructor(
+    title,
+    description,
+    dueDate,
+    dueDateCopy,
+    priority,
+    completed = "no",
+    id
+  ) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
+    this.dueDateCopy = dueDateCopy;
     this.priority = priority;
     this.completed = completed;
     this.id = id;
