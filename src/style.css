@@ -105,7 +105,9 @@ footer {
 }
 
 .home-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  justify-items: center;
 }
 
 .left-bar {
@@ -151,7 +153,6 @@ footer {
 }
 
 .task-list {
-  margin-left: 50px;
   margin-top: 50px;
   display: flex;
   flex-direction: column;
@@ -160,7 +161,7 @@ footer {
 
 .task-item {
   background-color: var(--accent-color);
-  width: 100vh;
+  width: 110vh;
   height: 5vh;
   padding: 3vh 4vh;
   display: grid;

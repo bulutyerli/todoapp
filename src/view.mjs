@@ -90,6 +90,7 @@ export default class View {
         name="edit-title"
         maxlength="25"
         minlength="3"
+        required
         value="${title}"
       />
       <label for="edit-description">Description:</label>
@@ -104,6 +105,7 @@ export default class View {
       <label for="edit-priority">Priority:</label>
       <select name="edit-priority" id="edit-priority">
         <option value="normal">${priority}</option>
+        <option value="important">important</option>
       </select>
       <button class="edit-task-btn">Save</button>`;
         if (!this.editModal.classList.contains("edit-task-modal--active")) {
@@ -136,6 +138,8 @@ export default class View {
               t.id === task.id ? updatedTask : t
             );
             this.updateTasks(updatedTasks);
+            this.editModal.classList.remove("edit-task-modal--active");
+            this.editModal.textContent = "";
           });
         } else {
           this.editModal.classList.remove("edit-task-modal--active");
