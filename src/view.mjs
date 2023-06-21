@@ -4,6 +4,7 @@ export default class View {
     this.taskList = document.querySelector(".task-list");
     this.descModal = document.querySelector(".desc-modal");
     this.editModal = document.querySelector(".edit-task-modal");
+    this.overlay = document.querySelector(".overlay");
   }
 
   getFormValues() {
@@ -112,6 +113,7 @@ export default class View {
           this.editModal.insertAdjacentHTML("beforeend", html);
           this.editModal.classList.add("edit-task-modal--active");
           this.modalCloseBtnHandler();
+          this.overlay.classList.add("overlay--active");
 
           const editTaskForm = document.querySelector(".edit-task-modal");
           editTaskForm.addEventListener("submit", (e) => {
@@ -177,6 +179,7 @@ export default class View {
           this.descModal.insertAdjacentHTML("beforeend", html);
           this.descModal.classList.add("desc-modal--active");
           this.modalCloseBtnHandler();
+          this.overlay.classList.add("overlay--active");
         } else {
           this.descModal.classList.remove("desc-modal--active");
           this.descModal.textContent = "";
@@ -191,6 +194,7 @@ export default class View {
       button.addEventListener("click", (e) => {
         e.preventDefault();
         this.showForm();
+        this.overlay.classList.add("overlay--active");
       });
     });
   }
@@ -227,13 +231,16 @@ export default class View {
         if (e.target.classList.contains("desc-close-btn")) {
           this.descModal.classList.remove("desc-modal--active");
           this.descModal.textContent = "";
+          this.overlay.classList.remove("overlay--active");
         }
         if (e.target.classList.contains("form-close")) {
           this.modal.classList.remove("form-modal--active");
+          this.overlay.classList.remove("overlay--active");
         }
         if (e.target.classList.contains("edit-close-btn")) {
           this.editModal.classList.remove("edit-task-modal--active");
           this.editModal.textContent = "";
+          this.overlay.classList.remove("overlay--active");
         }
       });
     });

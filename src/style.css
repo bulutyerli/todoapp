@@ -329,7 +329,7 @@ select {
   display: none;
 }
 
-.overlay.active {
+.overlay--active {
   display: block;
 }
 
