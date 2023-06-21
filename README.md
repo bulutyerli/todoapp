@@ -14,7 +14,7 @@ Each task can have a due date assigned to it. The app provides a date picker for
 **Task Prioritization:**
 Users can set the priority level of tasks as either "normal" or "important". This helps in organizing and prioritizing tasks based on their importance.
 
-**Mark Tasks as Completed: **
+**Mark Tasks as Completed:**
 Tasks can be marked as completed by checking the corresponding checkbox. Completed tasks are visually distinguished from pending tasks.
 
 **Edit Task Details:** Users can edit the title, description, due date, and priority of existing tasks.
@@ -23,7 +23,6 @@ Tasks can be marked as completed by checking the corresponding checkbox. Complet
 
 **Task Filtering:** The app offers various filters to help users quickly find tasks based on different criteria, such as viewing all tasks, tasks due today, tasks due within a week, important tasks, or completed tasks.
 
-**About the Author
-**
+**About the Author**
 
 This project was created by Bulut Yerli.
