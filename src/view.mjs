@@ -66,13 +66,13 @@ export default class View {
             task.dueDate === "Invalid Date" ? "No Due Date" : task.dueDate
           }</div>
           <div class="details-btn task-item-btn">
-            <img src="/assets/images/details.svg" alt="" />
+            <img src="assets/images/details.svg" alt="" />
           </div>
           <div class="edit-task task-item-btn">
-            <img src="/assets/images/edit.svg" alt="" />
+            <img src="assets/images/edit.svg" alt="" />
           </div>
           <div class="delete-task task-item-btn">
-            <img src="/assets/images/trash.svg" alt="" />
+            <img src="assets/images/trash.svg" alt="" />
           </div>
           
         </div>
@@ -328,7 +328,7 @@ export default class View {
       inputDate.getMonth() === currentDate.getMonth() &&
       inputDate.getFullYear() === currentDate.getFullYear()
     ) {
-      return "today";
+      return "Today";
     }
 
     // Check if the input date has passed
@@ -345,7 +345,7 @@ export default class View {
     if (daysRemaining > 1 && daysRemaining <= 7) {
       return `in ${daysRemaining} days`;
     } else if (daysRemaining === 1) {
-      return "tomorrow";
+      return "Tomorrow";
     } else {
       return dateString;
     }
