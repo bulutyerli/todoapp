@@ -85,6 +85,11 @@ export default class View {
     this.checkBoxHandler(tasks);
   }
 
+  updateTasks(updatedTasks) {
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    this.renderTasks(updatedTasks);
+  }
+
   editBtnHandler(tasks) {
     const editBtn = document.querySelectorAll(".edit-task");
     editBtn.forEach((edit) => {
@@ -150,7 +155,7 @@ export default class View {
               priority: updatedPriority,
             };
             const updatedTasks = tasks.map((task) =>
-              task.id === task.id ? updatedTask : task
+              task.id === id ? updatedTask : task
             );
             this.updateTasks(updatedTasks);
             this.editModal.classList.remove("edit-task-modal--active");
@@ -162,11 +167,6 @@ export default class View {
         }
       });
     });
-  }
-
-  updateTasks(updatedTasks) {
-    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
-    this.renderTasks(updatedTasks);
   }
 
   //details modal button handler
