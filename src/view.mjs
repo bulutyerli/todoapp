@@ -5,6 +5,7 @@ export default class View {
     this.descModal = document.querySelector(".desc-modal");
     this.editModal = document.querySelector(".edit-task-modal");
     this.overlay = document.querySelector(".overlay");
+    this.overlayClickHandler();
   }
 
   getFormValues() {
@@ -33,8 +34,24 @@ export default class View {
     document.getElementById("priority").value = "normal";
   }
 
+  overlayClickHandler() {
+    this.overlay.addEventListener("click", () => {
+      this.modal.classList.remove("form-modal--active");
+      this.descModal.classList.remove("desc-modal--active");
+      this.editModal.classList.remove("edit-task-modal--active");
+      this.overlay.classList.remove("overlay--active");
+      this.descModal.textContent = "";
+      this.editModal.textContent = "";
+    });
+  }
+
   renderTasks(tasks) {
-    this.taskList.textContent = ""; // Clear the task list before rendering
+    if (tasks.length === 0) {
+      const message = "You have no tasks to do";
+      this.taskList.textContent = message;
+      return;
+    }
+    this.taskList.textContent = ""; // Clears  task list before rendering
 
     tasks.forEach((task) => {
       const html = `<div class="task-item ${
@@ -60,7 +77,6 @@ export default class View {
           
         </div>
       </div>`;
-      console.log(task.dueDate);
 
       this.taskList.insertAdjacentHTML("beforeend", html);
     });
@@ -69,8 +85,6 @@ export default class View {
     this.checkBoxHandler(tasks);
   }
 
-  // edit tasks button handler
-
   editBtnHandler(tasks) {
     const editBtn = document.querySelectorAll(".edit-task");
     editBtn.forEach((edit) => {
@@ -78,7 +92,6 @@ export default class View {
         const taskId = event.target.closest(".task-item").dataset.id;
         const task = tasks.find((item) => item.id === taskId);
         const { title, description, dueDateCopy, priority, id } = task;
-        console.log("hi");
 
         event.preventDefault();
         const html = `<button type="button" class="edit-close-btn modal-close-btn">
@@ -136,8 +149,8 @@ export default class View {
               dueDate: this.checkDateStatus(formattedDate),
               priority: updatedPriority,
             };
-            const updatedTasks = tasks.map((t) =>
-              t.id === task.id ? updatedTask : t
+            const updatedTasks = tasks.map((task) =>
+              task.id === task.id ? updatedTask : task
             );
             this.updateTasks(updatedTasks);
             this.editModal.classList.remove("edit-task-modal--active");
@@ -253,9 +266,14 @@ export default class View {
       filter.addEventListener("click", (e) => {
         const filterType = e.target.classList;
         let filteredTasks = [];
+        const className = filterType[1];
+        const selectedFilter = document.querySelector(`.${className}`);
+
+        filters.forEach((filter) => {
+          filter.classList.remove("item--active");
+        });
 
         if (filterType.contains("all")) {
-          console.log("hi");
           filteredTasks = tasks;
         } else if (filterType.contains("today")) {
           filteredTasks = tasks;
@@ -283,7 +301,8 @@ export default class View {
           filteredTasks = tasks.filter((task) => task.completed === "yes");
         }
 
-        // Render the filtered tasks
+        selectedFilter.classList.add("item--active");
+
         this.renderTasks(filteredTasks);
       });
     });

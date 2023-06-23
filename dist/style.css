@@ -17,13 +17,13 @@
 
 @font-face {
   font-family: "TitleFont";
-  src: url("../assets/fonts/Montserrat_Alternates/MontserratAlternates-Black.ttf")
+  src: url("./assets/fonts/Montserrat_Alternates/MontserratAlternates-Black.ttf")
     format("truetype");
 }
 
 @font-face {
   font-family: "MyFont";
-  src: url("../assets/fonts/Montserrat_Alternates/MontserratAlternates-Medium.ttf")
+  src: url("./assets/fonts/Montserrat_Alternates/MontserratAlternates-Medium.ttf")
     format("truetype");
 }
 
@@ -34,7 +34,7 @@
 h1 {
   font-family: "TitleFont", sans-serif;
   text-shadow: 2px 2px 4px var(--shadow-color);
-  padding-left: 20px;
+  padding-left: 6%;
 }
 
 body {
@@ -68,11 +68,11 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 5px;
+  gap: 5%;
 }
 
 .add-new img {
-  margin-right: 10px;
+  margin-right: 5%;
   cursor: pointer;
 }
 
@@ -101,7 +101,7 @@ footer {
     var(--secondary-color)
   );
   color: var(--white-color);
-  padding: 20px;
+  padding: 1%;
 }
 
 .home-container {
@@ -112,25 +112,24 @@ footer {
 
 .left-bar {
   background-color: var(--secondary-color);
-  padding: 20px;
+  padding: 13%;
   display: flex;
   flex-direction: column;
   text-align: center;
-  height: 100vh;
-  gap: 100px;
+  height: 83vh;
   box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 .menu {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 2vh;
   font-size: 1rem;
 }
 
 .item {
   background-color: var(--accent-color);
-  padding: 10px;
+  padding: 1.3vh;
   border-radius: 10px;
   display: flex;
   gap: 10px;
@@ -140,9 +139,13 @@ footer {
 }
 
 .item:hover {
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+.item--active {
   background-color: var(--primary-color);
   color: var(--accent-color);
-  cursor: pointer;
   border: solid 1px var(--white-color);
   border-left: 10px solid var(--primary-color);
 }
@@ -157,11 +160,11 @@ footer {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  margin-left: 5%;
 }
 
 .task-item {
   background-color: var(--accent-color);
-  width: 110vh;
   height: 5vh;
   padding: 3vh 4vh;
   display: grid;
@@ -337,4 +340,74 @@ footer {
   padding: 10px;
   text-align: left;
   font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .left-bar {
+    padding: 8%;
+    height: 77vh;
+  }
+
+  .header,
+  footer {
+    padding: 2%;
+  }
+
+  .task-item {
+    width: auto;
+    padding: 2vh 3vh;
+  }
+}
+
+/* Styles for mobile */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+    padding-left: 2%;
+  }
+
+  .container {
+    padding: 5%;
+  }
+
+  .home-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.5fr auto;
+  }
+
+  .main-screen {
+    height: 65vh;
+  }
+
+  .left-bar {
+    padding: 1%;
+    display: flex;
+    flex-direction: row;
+    height: auto;
+  }
+
+  body {
+    height: 100vh;
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: row;
+    font-size: 0.7rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 15px;
+  }
+
+  .item {
+    padding: 1vh;
+    padding-left: 10px;
+  }
+
+  .task-item {
+    width: auto;
+    padding: 2vh 3vh;
+    font-size: 0.7rem;
+  }
 }
