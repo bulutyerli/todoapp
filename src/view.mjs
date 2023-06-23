@@ -45,7 +45,8 @@ export default class View {
     });
   }
 
-  renderTasks(tasks) {
+  renderTasks(tasks, filteredTasks = null) {
+    const tasksToRender = filteredTasks !== null ? filteredTasks : tasks;
     if (tasks.length === 0) {
       const message = "You have no tasks to do";
       this.taskList.textContent = message;
@@ -53,7 +54,7 @@ export default class View {
     }
     this.taskList.textContent = ""; // Clears  task list before rendering
 
-    tasks.forEach((task) => {
+    tasksToRender.forEach((task) => {
       const html = `<div class="task-item ${
         task.priority === "important" ? "important" : ""
       } ${task.completed === "yes" ? "completed" : ""}" data-id="${task.id}">
@@ -80,9 +81,9 @@ export default class View {
 
       this.taskList.insertAdjacentHTML("beforeend", html);
     });
-    this.detailsBtnHandler(tasks);
-    this.editBtnHandler(tasks);
-    this.checkBoxHandler(tasks);
+    this.detailsBtnHandler(tasksToRender);
+    this.editBtnHandler(tasksToRender);
+    this.checkBoxHandler(tasksToRender);
   }
 
   updateTasks(updatedTasks) {
