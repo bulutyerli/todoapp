@@ -371,6 +371,10 @@ footer {
     padding: 5%;
   }
 
+  .header {
+    width: auto;
+  }
+
   .home-container {
     display: grid;
     grid-template-columns: 1fr;
@@ -386,6 +390,7 @@ footer {
     display: flex;
     flex-direction: row;
     height: auto;
+    width: auto;
   }
 
   body {
@@ -406,9 +411,19 @@ footer {
     padding-left: 10px;
   }
 
+  .task-list {
+    margin-left: 0;
+  }
+
   .task-item {
-    width: auto;
-    padding: 2vh 3vh;
+    width: 37vh;
+    padding: 2vh 1vh;
     font-size: 0.7rem;
+    height: auto;
+  }
+
+  .task-title {
+    width: 8vh;
+    overflow-wrap: break-word;
   }
 }
