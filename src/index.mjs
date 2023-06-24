@@ -5,6 +5,9 @@ const view = new View();
 const model = new Model();
 
 const storedTasks = JSON.parse(localStorage.getItem("tasks"));
+const addBtn = document.querySelectorAll(".add-new");
+const form = document.querySelector(".form-modal");
+const taskList = document.querySelector(".task-list");
 
 if (storedTasks) {
   model.setTasks(storedTasks);
@@ -14,9 +17,6 @@ if (storedTasks) {
 } else {
   view.renderTasks([]);
 }
-
-const addBtn = document.querySelectorAll(".add-new");
-const form = document.querySelector(".form-modal");
 
 form.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -29,7 +29,6 @@ form.addEventListener("submit", function (e) {
   view.clearForm();
 });
 
-const taskList = document.querySelector(".task-list");
 taskList.addEventListener("click", (e) => {
   if (e.target.closest(".delete-task")) {
     const taskItem = e.target.closest(".task-item");

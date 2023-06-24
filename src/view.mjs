@@ -45,8 +45,7 @@ export default class View {
     });
   }
 
-  renderTasks(tasks, filteredTasks = null) {
-    const tasksToRender = filteredTasks !== null ? filteredTasks : tasks;
+  renderTasks(tasks) {
     if (tasks.length === 0) {
       const message = "You have no tasks to do";
       this.taskList.textContent = message;
@@ -54,7 +53,7 @@ export default class View {
     }
     this.taskList.textContent = ""; // Clears  task list before rendering
 
-    tasksToRender.forEach((task) => {
+    tasks.forEach((task) => {
       const html = `<div class="task-item ${
         task.priority === "important" ? "important" : ""
       } ${task.completed === "yes" ? "completed" : ""}" data-id="${task.id}">
@@ -81,9 +80,9 @@ export default class View {
 
       this.taskList.insertAdjacentHTML("beforeend", html);
     });
-    this.detailsBtnHandler(tasksToRender);
-    this.editBtnHandler(tasksToRender);
-    this.checkBoxHandler(tasksToRender);
+    this.detailsBtnHandler(tasks);
+    this.editBtnHandler(tasks);
+    this.checkBoxHandler(tasks);
   }
 
   updateTasks(updatedTasks) {
@@ -161,6 +160,8 @@ export default class View {
             this.updateTasks(updatedTasks);
             this.editModal.classList.remove("edit-task-modal--active");
             this.editModal.textContent = "";
+            this.overlay.classList.remove("overlay--active");
+            this.taskFilterHandler(updatedTasks);
           });
         } else {
           this.editModal.classList.remove("edit-task-modal--active");
@@ -265,8 +266,8 @@ export default class View {
 
     filters.forEach((filter) => {
       filter.addEventListener("click", (e) => {
+        let filteredTasks = tasks;
         const filterType = e.target.classList;
-        let filteredTasks = [];
         const className = filterType[1];
         const selectedFilter = document.querySelector(`.${className}`);
 
@@ -305,6 +306,7 @@ export default class View {
         selectedFilter.classList.add("item--active");
 
         this.renderTasks(filteredTasks);
+        console.log(filteredTasks);
       });
     });
   }
@@ -329,7 +331,7 @@ export default class View {
       inputDate.getMonth() === currentDate.getMonth() &&
       inputDate.getFullYear() === currentDate.getFullYear()
     ) {
-      return "Today";
+      return "today";
     }
 
     // Check if the input date has passed
@@ -346,7 +348,7 @@ export default class View {
     if (daysRemaining > 1 && daysRemaining <= 7) {
       return `in ${daysRemaining} days`;
     } else if (daysRemaining === 1) {
-      return "Tomorrow";
+      return "tomorrow";
     } else {
       return dateString;
     }
