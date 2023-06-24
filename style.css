@@ -167,6 +167,7 @@ footer {
   background-color: var(--accent-color);
   height: 5vh;
   padding: 3vh 4vh;
+  width: 90vh;
   display: grid;
   grid-template-columns: 0.5fr 1fr 1fr;
   align-content: center;
