@@ -367,10 +367,6 @@ footer {
     padding-left: 2%;
   }
 
-  .container {
-    padding: 5%;
-  }
-
   .header {
     width: auto;
   }
@@ -383,6 +379,7 @@ footer {
 
   .main-screen {
     height: 65vh;
+    width: 90%;
   }
 
   .left-bar {
@@ -413,12 +410,13 @@ footer {
 
   .task-list {
     margin-left: 0;
+    text-align: center;
   }
 
   .task-item {
-    width: 37vh;
+    width: 100%;
     padding: 2vh 1vh;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     height: auto;
   }
 
