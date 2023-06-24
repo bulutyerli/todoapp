@@ -123,7 +123,7 @@ export default class View {
       <input type="date" id="edit-due-date" name="edit-due-date"value="${dueDateCopy}"  />
       <label for="edit-priority">Priority:</label>
       <select name="edit-priority" id="edit-priority">
-        <option value="normal">${priority}</option>
+        <option value="normal">normal</option>
         <option value="important">important</option>
       </select>
       <button class="edit-task-btn">Save</button>`;
@@ -158,10 +158,11 @@ export default class View {
               task.id === id ? updatedTask : task
             );
             this.updateTasks(updatedTasks);
+            this.taskFilterHandler(updatedTasks);
+            console.log(updatedTitle);
             this.editModal.classList.remove("edit-task-modal--active");
             this.editModal.textContent = "";
             this.overlay.classList.remove("overlay--active");
-            this.taskFilterHandler(updatedTasks);
           });
         } else {
           this.editModal.classList.remove("edit-task-modal--active");
