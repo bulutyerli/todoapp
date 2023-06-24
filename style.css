@@ -367,8 +367,8 @@ footer {
     padding-left: 2%;
   }
 
-  .container {
-    padding: 5%;
+  .header {
+    width: auto;
   }
 
   .home-container {
@@ -379,6 +379,7 @@ footer {
 
   .main-screen {
     height: 65vh;
+    width: 90%;
   }
 
   .left-bar {
@@ -386,6 +387,7 @@ footer {
     display: flex;
     flex-direction: row;
     height: auto;
+    width: auto;
   }
 
   body {
@@ -406,9 +408,20 @@ footer {
     padding-left: 10px;
   }
 
+  .task-list {
+    margin-left: 0;
+    text-align: center;
+  }
+
   .task-item {
-    width: auto;
-    padding: 2vh 3vh;
-    font-size: 0.7rem;
+    width: 100%;
+    padding: 2vh 1vh;
+    font-size: 0.8rem;
+    height: auto;
+  }
+
+  .task-title {
+    width: 8vh;
+    overflow-wrap: break-word;
   }
 }
