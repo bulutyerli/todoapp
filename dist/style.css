@@ -111,7 +111,7 @@ footer {
 
 .home-container {
   display: grid;
-  grid-template-columns: 1fr 5fr;
+  grid-template-columns: 1.5fr 5fr;
   justify-items: center;
 }
 
@@ -123,6 +123,7 @@ footer {
   text-align: center;
   height: 83vh;
   box-shadow: 0 2px 4px var(--shadow-color);
+  justify-self: flex-start;
 }
 
 .menu {
@@ -160,11 +161,16 @@ footer {
   padding: 10px;
 }
 
+.main-screen {
+  width: 90%;
+}
+
 .task-list {
   margin-top: 50px;
   display: flex;
   flex-direction: column;
   gap: 15px;
+  width: 100%;
 }
 
 .task-item {
@@ -216,7 +222,7 @@ footer {
 
 .options {
   display: grid;
-  grid-template-columns: 3fr 1fr 1fr 1fr;
+  grid-template-columns: 3fr repeat(3, 1fr);
   gap: 3vh;
   align-items: center;
 }
@@ -387,7 +393,7 @@ footer {
 
   h1 {
     font-size: 1rem;
-    padding-left: 10%;
+    padding-left: 5%;
   }
 
   h3 {
@@ -482,5 +488,17 @@ footer {
 
   .options {
     gap: 1.5vh;
+  }
+
+  .modal-window {
+    width: 100%;
+  }
+
+  .container {
+    height: 100vh;
+  }
+
+  .home-container {
+    height: 100%;
   }
 }
