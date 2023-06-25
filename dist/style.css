@@ -29,6 +29,7 @@
 
 .logo {
   filter: drop-shadow(2px 2px 4px var(--shadow-color));
+  width: 100px;
 }
 
 h1 {
@@ -57,6 +58,10 @@ header {
   display: flex;
   justify-content: space-between;
   box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.hamburger-menu {
+  display: none;
 }
 
 .title {
@@ -160,14 +165,12 @@ footer {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-left: 5%;
 }
 
 .task-item {
   background-color: var(--accent-color);
-  height: 5vh;
   padding: 3vh 4vh;
-  width: 90vh;
+  width: 100%;
   display: grid;
   grid-template-columns: 0.5fr 1fr 1fr;
   align-content: center;
@@ -355,20 +358,50 @@ footer {
   }
 
   .task-item {
-    width: auto;
+    width: 45vh;
     padding: 2vh 3vh;
+  }
+
+  .item {
+    padding: 0.5vh;
+    padding-left: 10px;
+    width: 20vh;
+    margin-left: 2vh;
+  }
+
+  .task-title {
+    width: 8vh;
+    overflow-wrap: break-word;
+  }
+
+  .options {
+    gap: 1vh;
   }
 }
 
 /* Styles for mobile */
 @media (max-width: 480px) {
+  body {
+    height: 100vh;
+  }
+
   h1 {
-    font-size: 1.5rem;
-    padding-left: 2%;
+    font-size: 1rem;
+    padding-left: 10%;
+  }
+
+  h3 {
+    font-size: 0.8rem;
   }
 
   .header {
     width: auto;
+    display: grid;
+    grid-template-columns: 5fr 0.5fr 1fr;
+  }
+
+  .logo {
+    width: 50px;
   }
 
   .home-container {
@@ -390,12 +423,25 @@ footer {
     width: auto;
   }
 
-  body {
-    height: 100vh;
+  .hamburger-menu {
+    display: flex;
+    justify-self: right;
+  }
+
+  .hamburger-img {
+    width: 35px;
+  }
+
+  .add-task-text {
+    display: none;
+  }
+
+  .left-bar {
+    display: none;
   }
 
   .menu {
-    display: flex;
+    display: none;
     flex-direction: row;
     font-size: 0.7rem;
     flex-wrap: wrap;
@@ -403,9 +449,18 @@ footer {
     margin: 15px;
   }
 
+  .left-bar-active {
+    display: block;
+  }
+
+  .menu-active {
+    display: flex;
+  }
+
   .item {
-    padding: 1vh;
+    padding: 0.5vh;
     padding-left: 10px;
+    width: 40%;
   }
 
   .task-list {
@@ -423,5 +478,9 @@ footer {
   .task-title {
     width: 8vh;
     overflow-wrap: break-word;
+  }
+
+  .options {
+    gap: 1.5vh;
   }
 }

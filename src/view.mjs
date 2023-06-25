@@ -5,7 +5,10 @@ export default class View {
     this.descModal = document.querySelector(".desc-modal");
     this.editModal = document.querySelector(".edit-task-modal");
     this.overlay = document.querySelector(".overlay");
+    this.hamburger = document.querySelector(".hamburger-menu");
+
     this.overlayClickHandler();
+    this.hamburgerMenuClickHandler();
   }
 
   getFormValues() {
@@ -32,6 +35,15 @@ export default class View {
     document.getElementById("description").value = "";
     document.getElementById("due-date").value = "";
     document.getElementById("priority").value = "normal";
+  }
+
+  hamburgerMenuClickHandler() {
+    this.hamburger.addEventListener("click", () => {
+      const leftBar = document.querySelector(".left-bar");
+      const menu = document.querySelector(".menu");
+      leftBar.classList.toggle("left-bar-active");
+      menu.classList.toggle("menu-active");
+    });
   }
 
   overlayClickHandler() {
@@ -63,7 +75,7 @@ export default class View {
         ${task.title}</div>
         <div class="options">
           <div class="date">${
-            task.dueDate === "Invalid Date" ? "No Due Date" : task.dueDate
+            task.dueDate === "Invalid Date" ? "No Due" : task.dueDate
           }</div>
           <div class="details-btn task-item-btn">
             <img src="assets/images/details.svg" alt="" />
