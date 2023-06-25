@@ -171,7 +171,6 @@ export default class View {
             );
             this.updateTasks(updatedTasks);
             this.taskFilterHandler(updatedTasks);
-            console.log(updatedTitle);
             this.editModal.classList.remove("edit-task-modal--active");
             this.editModal.textContent = "";
             this.overlay.classList.remove("overlay--active");
@@ -301,9 +300,10 @@ export default class View {
 
           filteredTasks = tasks.filter(
             (task) =>
-              task.dueDate.includes("in") ||
-              task.dueDate.includes("today") ||
-              (task.dueDate.includes("tomorrow") && task.completed === "no")
+              (task.dueDate.includes("in") ||
+                task.dueDate.includes("today") ||
+                task.dueDate.includes("tomorrow")) &&
+              task.completed === "no"
           );
         } else if (filterType.contains("important")) {
           filteredTasks = tasks;
@@ -319,7 +319,6 @@ export default class View {
         selectedFilter.classList.add("item--active");
 
         this.renderTasks(filteredTasks);
-        console.log(filteredTasks);
       });
     });
   }
